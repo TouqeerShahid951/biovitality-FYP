@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "266832703912",
+    "firebase_url": "https://biovitality-379af-default-rtdb.firebaseio.com",
+    "project_id": "biovitality-379af",
+    "storage_bucket": "biovitality-379af.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:266832703912:android:ec02a9667b710de94e6d9d",
+        "android_client_info": {
+          "package_name": "com.example.biovitality"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCtqoKuaR0QD3XA_TgKJXOSil2sH_Delfw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

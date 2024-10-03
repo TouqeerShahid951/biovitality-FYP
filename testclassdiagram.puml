@@ -1,0 +1,940 @@
+@startuml
+set namespaceSeparator ::
+
+class "biovitality::main.dart::MyApp" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "biovitality::main.dart::MyApp"
+
+class "biovitality::main.dart::IntroSliderScreen" {
+  +State<IntroSliderScreen> createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "biovitality::main.dart::IntroSliderScreen"
+
+class "biovitality::main.dart::_IntroSliderScreenState" {
+  -PageController _pageController
+  +int currentIndex
+  +Widget build()
+  -Widget _indicator()
+  -List<Widget> _buildIndicator()
+}
+
+"biovitality::main.dart::_IntroSliderScreenState" o-- "flutter::src::widgets::page_view.dart::PageController"
+"flutter::src::widgets::framework.dart::State" <|-- "biovitality::main.dart::_IntroSliderScreenState"
+
+class "biovitality::main.dart::createPage" {
+  +String title
+  +String subtitle
+  +String image
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "biovitality::main.dart::createPage"
+
+class "biovitality::models::user.dart::UserDetail" {
+  +String? uid
+  +String? email
+  +String? name
+  +String? contact
+  +String? address
+  +Map<String, dynamic> toMap()
+}
+
+class "biovitality::services::auth_service.dart::AuthService" {
+  -FirebaseAuth _auth
+  -DatabaseReference _dbRef
+  -GoogleSignIn _googleSignIn
+  +dynamic login()
+  +dynamic loginWithGoogle()
+  +dynamic checkIfUserExists()
+  +dynamic register()
+  +dynamic getUserDetails()
+}
+
+"biovitality::services::auth_service.dart::AuthService" o-- "firebase_auth::firebase_auth.dart::FirebaseAuth"
+"biovitality::services::auth_service.dart::AuthService" o-- "firebase_database::firebase_database.dart::DatabaseReference"
+"biovitality::services::auth_service.dart::AuthService" o-- "google_sign_in::google_sign_in.dart::GoogleSignIn"
+
+class "biovitality::services::model_detection_service.dart::DetectionService" {
+  -List<dynamic> _recognitions
+  -String _modelPath
+  -String _labelsPath
+  -bool _busy
+  +bool busy
+  +dynamic loadModel()
+  +dynamic predictImagePickerGallery()
+  +void closeModel()
+}
+
+class "biovitality::services::register_service.dart::RegisterService" {
+  -FirebaseAuth _firebaseAuth
+  -DatabaseReference _dbRef
+  -GoogleSignIn _googleSignIn
+  +dynamic registerToFb()
+  +dynamic registerWithGoogle()
+  +dynamic checkIfUserExists()
+  -void _showErrorDialog()
+}
+
+"biovitality::services::register_service.dart::RegisterService" o-- "firebase_auth::firebase_auth.dart::FirebaseAuth"
+"biovitality::services::register_service.dart::RegisterService" o-- "firebase_database::firebase_database.dart::DatabaseReference"
+"biovitality::services::register_service.dart::RegisterService" o-- "google_sign_in::google_sign_in.dart::GoogleSignIn"
+
+class "biovitality::services::weather_services::weather_api.dart::WeatherAPI" {
+  -WeatherData _weatherData
+  -List<ForecastData> _forecastData
+  +WeatherData weatherData
+  +List<ForecastData> forecastData
+  +dynamic fetchWeatherData()
+}
+
+"biovitality::services::weather_services::weather_api.dart::WeatherAPI" o-- "biovitality::services::weather_services::weather_data.dart::WeatherData"
+
+class "biovitality::services::weather_services::weather_api.dart::ForecastData" {
+  +DateTime date
+  +double temperature
+  +String weatherDescription
+}
+
+class "biovitality::services::weather_services::weather_data.dart::WeatherData" {
+  +String cityName
+  +double temperature
+  +String weatherDescription
+  +int humidity
+  +double windSpeed
+  +int pressure
+  +int visibility
+  +DateTime? sunrise
+  +DateTime? sunset
+  +DateTime? date
+  +void updateData()
+}
+
+class "biovitality::services::weather_services::weather_widgets.dart::WeatherBody" {
+  -WeatherData _weatherData
+  -List<ForecastData> _forecastData
+  +Widget build()
+}
+
+"biovitality::services::weather_services::weather_widgets.dart::WeatherBody" o-- "biovitality::services::weather_services::weather_data.dart::WeatherData"
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "biovitality::services::weather_services::weather_widgets.dart::WeatherBody"
+
+class "biovitality::services::weather_services::weather_widgets.dart::ForecastBox" {
+  -ForecastData _forecastData
+  -DateTime _date
+  +Widget build()
+}
+
+"biovitality::services::weather_services::weather_widgets.dart::ForecastBox" o-- "biovitality::services::weather_services::weather_api.dart::ForecastData"
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "biovitality::services::weather_services::weather_widgets.dart::ForecastBox"
+
+class "biovitality::services::weather_services::weather_widgets.dart::WeatherDetailBox" {
+  +IconData icon
+  +String label
+  +String value
+  +Widget build()
+}
+
+"biovitality::services::weather_services::weather_widgets.dart::WeatherDetailBox" o-- "flutter::src::widgets::icon_data.dart::IconData"
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "biovitality::services::weather_services::weather_widgets.dart::WeatherDetailBox"
+
+class "biovitality::Splash.dart::Splash" {
+  +State<Splash> createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "biovitality::Splash.dart::Splash"
+
+class "biovitality::Splash.dart::_SplashState" {
+  +void initState()
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::State" <|-- "biovitality::Splash.dart::_SplashState"
+
+class "biovitality::ui::about_biovitality.dart::AboutBioVitality" {
+  +Widget build()
+  -Widget _buildSectionTitle()
+  -Widget _buildParagraph()
+  -Widget _buildFeatureTile()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "biovitality::ui::about_biovitality.dart::AboutBioVitality"
+
+class "biovitality::ui::bottomActivities::bulletin_screen.dart::BulletinScreen" {
+  +State<BulletinScreen> createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "biovitality::ui::bottomActivities::bulletin_screen.dart::BulletinScreen"
+
+class "biovitality::ui::bottomActivities::bulletin_screen.dart::_BulletinScreenState" {
+  -int _selectedIndex
+  -List<dynamic> _news
+  -bool _isLoading
+  +void initState()
+  +dynamic fetchNews()
+  -void _onItemTapped()
+  -dynamic _onWillPop()
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::State" <|-- "biovitality::ui::bottomActivities::bulletin_screen.dart::_BulletinScreenState"
+
+class "biovitality::ui::bottomActivities::home_screen.dart::Home" {
+  +String? uid
+  +_HomeState createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "biovitality::ui::bottomActivities::home_screen.dart::Home"
+
+class "biovitality::ui::bottomActivities::home_screen.dart::_HomeState" {
+  -int _selectedIndex
+  -DatabaseReference _dbRef
+  -dynamic _userDataFuture
+  -File? _image
+  +String diseaseName
+  -bool _busy
+  +List<Map<String, String>> crops
+  +void initState()
+  -dynamic _getUserData()
+  -void _onItemTapped()
+  -dynamic _onWillPop()
+  +Widget build()
+  -void _navigateToNextPage()
+}
+
+"biovitality::ui::bottomActivities::home_screen.dart::_HomeState" o-- "firebase_database::firebase_database.dart::DatabaseReference"
+"biovitality::ui::bottomActivities::home_screen.dart::_HomeState" o-- "dart::io::File"
+"flutter::src::widgets::framework.dart::State" <|-- "biovitality::ui::bottomActivities::home_screen.dart::_HomeState"
+
+class "biovitality::ui::bottomActivities::home_screen.dart::CropCard" {
+  +String cropName
+  +String assetPath
+  +Widget build()
+  -void _navigateToNextPage()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "biovitality::ui::bottomActivities::home_screen.dart::CropCard"
+
+class "biovitality::ui::bottomActivities::marketview_screen.dart::MarketViewScreen" {
+  +State<MarketViewScreen> createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "biovitality::ui::bottomActivities::marketview_screen.dart::MarketViewScreen"
+
+class "biovitality::ui::bottomActivities::marketview_screen.dart::_MarketViewScreenState" {
+  -int _selectedIndex
+  +DatabaseReference databaseReference
+  -void _onItemTapped()
+  -dynamic _onWillPop()
+  +Widget build()
+  -void _openInGoogleMaps()
+}
+
+"biovitality::ui::bottomActivities::marketview_screen.dart::_MarketViewScreenState" o-- "firebase_database::firebase_database.dart::DatabaseReference"
+"flutter::src::widgets::framework.dart::State" <|-- "biovitality::ui::bottomActivities::marketview_screen.dart::_MarketViewScreenState"
+
+class "biovitality::ui::bottomActivities::weather_screen.dart::WeatherScreen" {
+  +State<WeatherScreen> createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "biovitality::ui::bottomActivities::weather_screen.dart::WeatherScreen"
+
+class "biovitality::ui::bottomActivities::weather_screen.dart::_WeatherScreenState" {
+  -WeatherData _weatherData
+  -WeatherAPI _weatherAPI
+  -int _selectedIndex
+  -bool _isDataLoaded
+  -dynamic _onWillPop()
+  -void _onItemTapped()
+  +void initState()
+  -dynamic _getCurrentLocation()
+  -dynamic _refresh()
+  +Widget build()
+}
+
+"biovitality::ui::bottomActivities::weather_screen.dart::_WeatherScreenState" o-- "biovitality::services::weather_services::weather_data.dart::WeatherData"
+"biovitality::ui::bottomActivities::weather_screen.dart::_WeatherScreenState" o-- "biovitality::services::weather_services::weather_api.dart::WeatherAPI"
+"flutter::src::widgets::framework.dart::State" <|-- "biovitality::ui::bottomActivities::weather_screen.dart::_WeatherScreenState"
+
+class "biovitality::ui::cure_screen.dart::Cure" {
+  +String diseaseName
+  +Map<String, String> disease
+  +Map<String, String> diseaseDetails
+  +Image? img
+  +Widget build()
+}
+
+"biovitality::ui::cure_screen.dart::Cure" o-- "flutter::src::widgets::image.dart::Image"
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "biovitality::ui::cure_screen.dart::Cure"
+
+class "biovitality::ui::login_screen.dart::LoginScreen" {
+  +State<LoginScreen> createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "biovitality::ui::login_screen.dart::LoginScreen"
+
+class "biovitality::ui::login_screen.dart::_LoginScreenState" {
+  +TextEditingController emailController
+  +TextEditingController passwordController
+  -AuthService _authService
+  -bool _isObscure
+  -bool _isLoading
+  +Widget build()
+  -void _login()
+  -dynamic _loginWithGoogle()
+  +void dispose()
+}
+
+"biovitality::ui::login_screen.dart::_LoginScreenState" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
+"biovitality::ui::login_screen.dart::_LoginScreenState" o-- "biovitality::services::auth_service.dart::AuthService"
+"flutter::src::widgets::framework.dart::State" <|-- "biovitality::ui::login_screen.dart::_LoginScreenState"
+
+class "biovitality::ui::model_detection_screen.dart::DetectionPage" {
+  +String crop
+  +State<DetectionPage> createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "biovitality::ui::model_detection_screen.dart::DetectionPage"
+
+class "biovitality::ui::model_detection_screen.dart::_DetectionPageState" {
+  -File? _image
+  -DetectionService _detectionService
+  +void initState()
+  -dynamic _showDialog()
+  -dynamic _predictImagePickerGallery()
+  -dynamic _predictImagePickerCamera()
+  -dynamic _showResultDialog()
+  -void _handleCure()
+  +void dispose()
+  +Widget build()
+}
+
+"biovitality::ui::model_detection_screen.dart::_DetectionPageState" o-- "dart::io::File"
+"biovitality::ui::model_detection_screen.dart::_DetectionPageState" o-- "biovitality::services::model_detection_service.dart::DetectionService"
+"flutter::src::widgets::framework.dart::State" <|-- "biovitality::ui::model_detection_screen.dart::_DetectionPageState"
+
+class "biovitality::ui::myprofile_screen.dart::MyProfilePage" {
+  +_MyProfilePageState createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "biovitality::ui::myprofile_screen.dart::MyProfilePage"
+
+class "biovitality::ui::myprofile_screen.dart::_MyProfilePageState" {
+  -FirebaseAuth _auth
+  -DatabaseReference _dbRef
+  -FirebaseStorage _storage
+  -User? _user
+  -String _email
+  -String _name
+  -String _profileImageUrl
+  -String _contact
+  -String _address
+  -ImagePicker _imagePicker
+  +void initState()
+  -void _getUserData()
+  -dynamic _selectImage()
+  +Widget build()
+  +dynamic itemProfile()
+}
+
+"biovitality::ui::myprofile_screen.dart::_MyProfilePageState" o-- "firebase_auth::firebase_auth.dart::FirebaseAuth"
+"biovitality::ui::myprofile_screen.dart::_MyProfilePageState" o-- "firebase_database::firebase_database.dart::DatabaseReference"
+"biovitality::ui::myprofile_screen.dart::_MyProfilePageState" o-- "firebase_storage::firebase_storage.dart::FirebaseStorage"
+"biovitality::ui::myprofile_screen.dart::_MyProfilePageState" o-- "firebase_auth::firebase_auth.dart::User"
+"biovitality::ui::myprofile_screen.dart::_MyProfilePageState" o-- "image_picker::image_picker.dart::ImagePicker"
+"flutter::src::widgets::framework.dart::State" <|-- "biovitality::ui::myprofile_screen.dart::_MyProfilePageState"
+
+class "biovitality::ui::register_screen.dart::RegisterScreen" {
+  +State<RegisterScreen> createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "biovitality::ui::register_screen.dart::RegisterScreen"
+
+class "biovitality::ui::register_screen.dart::_RegisterScreenState" {
+  +bool isLoading
+  -GlobalKey<FormState> _formKey
+  -RegisterService _registerService
+  +TextEditingController emailController
+  +TextEditingController nameController
+  +TextEditingController passwordController
+  -bool _isObscure
+  +Widget build()
+  +void dispose()
+}
+
+"biovitality::ui::register_screen.dart::_RegisterScreenState" o-- "flutter::src::widgets::framework.dart::GlobalKey<FormState>"
+"biovitality::ui::register_screen.dart::_RegisterScreenState" o-- "biovitality::services::register_service.dart::RegisterService"
+"biovitality::ui::register_screen.dart::_RegisterScreenState" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
+"flutter::src::widgets::framework.dart::State" <|-- "biovitality::ui::register_screen.dart::_RegisterScreenState"
+
+class "biovitality::ui::terms_conditions.dart::TermsConditions" {
+  +Widget build()
+  -Widget _buildSectionTitle()
+  -Widget _buildParagraph()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "biovitality::ui::terms_conditions.dart::TermsConditions"
+
+class "biovitality::ui::update_profile.dart::UpdateProfile" {
+  +_UpdateProfileState createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "biovitality::ui::update_profile.dart::UpdateProfile"
+
+class "biovitality::ui::update_profile.dart::_UpdateProfileState" {
+  -GlobalKey<FormState> _formKey
+  -TextEditingController _nameController
+  -TextEditingController _contactController
+  -TextEditingController _addressController
+  -FirebaseAuth _auth
+  -FirebaseDatabase _database
+  -User? _user
+  +void initState()
+  -void _getUserData()
+  -void _updateUserData()
+  +Widget build()
+}
+
+"biovitality::ui::update_profile.dart::_UpdateProfileState" o-- "flutter::src::widgets::framework.dart::GlobalKey<FormState>"
+"biovitality::ui::update_profile.dart::_UpdateProfileState" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
+@enduml
+PS D:\Projects\biovitality-3.0> dart pub global run dcdg
+@startuml
+set namespaceSeparator ::
+
+class "biovitality::admin::admin_services::admin_auth_service.dart::AdminAuthService" {
+  -FirebaseAuth _auth
+  -DatabaseReference _dbRef
+  +dynamic login()
+  +dynamic logout()
+}
+
+"biovitality::admin::admin_services::admin_auth_service.dart::AdminAuthService" o-- "firebase_auth::firebase_auth.dart::FirebaseAuth"
+"biovitality::admin::admin_services::admin_auth_service.dart::AdminAuthService" o-- "firebase_database::firebase_database.dart::DatabaseReference"
+
+class "biovitality::admin::admin_services::admin_login_service.dart::AdminLoginService" {
+  -AdminAuthService _authService
+  +dynamic login()
+  +dynamic logout()
+}
+
+"biovitality::admin::admin_services::admin_login_service.dart::AdminLoginService" o-- "biovitality::admin::admin_services::admin_auth_service.dart::AdminAuthService"
+
+class "biovitality::admin::admin_ui::admin_login_screen.dart::AdminLoginScreen" {
+  +State<AdminLoginScreen> createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "biovitality::admin::admin_ui::admin_login_screen.dart::AdminLoginScreen"
+
+class "biovitality::admin::admin_ui::admin_login_screen.dart::_AdminLoginScreenState" {
+  +TextEditingController emailController
+  +TextEditingController passwordController
+  -FirebaseAuth _auth
+  -bool _isObscure
+  -bool _isLoading
+  +Widget build()
+  -void _login()
+}
+
+"biovitality::admin::admin_ui::admin_login_screen.dart::_AdminLoginScreenState" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
+"biovitality::admin::admin_ui::admin_login_screen.dart::_AdminLoginScreenState" o-- "firebase_auth::firebase_auth.dart::FirebaseAuth"
+"flutter::src::widgets::framework.dart::State" <|-- "biovitality::admin::admin_ui::admin_login_screen.dart::_AdminLoginScreenState"
+
+class "biovitality::admin::admin_ui::admin_panel.dart::AdminPanel" {
+  +String adminUid
+  +_AdminPanelState createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "biovitality::admin::admin_ui::admin_panel.dart::AdminPanel"
+
+class "biovitality::admin::admin_ui::admin_panel.dart::_AdminPanelState" {
+  -FirebaseAuth _auth
+  -DatabaseReference _dbRef
+  -int _totalUsers
+  -int _totalShops
+  +void initState()
+  -void _fetchStats()
+  +Widget build()
+}
+
+"biovitality::admin::admin_ui::admin_panel.dart::_AdminPanelState" o-- "firebase_auth::firebase_auth.dart::FirebaseAuth"
+"biovitality::admin::admin_ui::admin_panel.dart::_AdminPanelState" o-- "firebase_database::firebase_database.dart::DatabaseReference"
+"flutter::src::widgets::framework.dart::State" <|-- "biovitality::admin::admin_ui::admin_panel.dart::_AdminPanelState"
+
+class "biovitality::admin::admin_ui::manage_shops_screen.dart::ManageShopsScreen" {
+  +_ManageShopsScreenState createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "biovitality::admin::admin_ui::manage_shops_screen.dart::ManageShopsScreen"
+
+class "biovitality::admin::admin_ui::manage_shops_screen.dart::_ManageShopsScreenState" {
+  -DatabaseReference _dbRef
+  -FirebaseStorage _storage
+  -ImagePicker _picker
+  -String _imageUrl
+  -File? _imageFile
+  -TextEditingController _nameController
+  -TextEditingController _latitudeController
+  -TextEditingController _longitudeController
+  -dynamic _uploadImage()
+  -dynamic _addShop()
+  -dynamic _deleteShop()
+  +Widget build()
+}
+
+"biovitality::admin::admin_ui::manage_shops_screen.dart::_ManageShopsScreenState" o-- "firebase_database::firebase_database.dart::DatabaseReference"
+"biovitality::admin::admin_ui::manage_shops_screen.dart::_ManageShopsScreenState" o-- "firebase_storage::firebase_storage.dart::FirebaseStorage"
+"biovitality::admin::admin_ui::manage_shops_screen.dart::_ManageShopsScreenState" o-- "image_picker::image_picker.dart::ImagePicker"
+"biovitality::admin::admin_ui::manage_shops_screen.dart::_ManageShopsScreenState" o-- "dart::io::File"
+"biovitality::admin::admin_ui::manage_shops_screen.dart::_ManageShopsScreenState" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
+"flutter::src::widgets::framework.dart::State" <|-- "biovitality::admin::admin_ui::manage_shops_screen.dart::_ManageShopsScreenState"
+
+class "biovitality::admin::admin_ui::manage_users_screen.dart::ManageUsersScreen" {
+  +_ManageUsersScreenState createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "biovitality::admin::admin_ui::manage_users_screen.dart::ManageUsersScreen"
+
+class "biovitality::admin::admin_ui::manage_users_screen.dart::_ManageUsersScreenState" {
+  -DatabaseReference _dbRef
+  -List<User> _users
+  -bool _isLoading
+  +void initState()
+  -dynamic _fetchUsers()
+  -dynamic _deleteUser()
+  +Widget build()
+}
+
+"biovitality::admin::admin_ui::manage_users_screen.dart::_ManageUsersScreenState" o-- "firebase_database::firebase_database.dart::DatabaseReference"
+"flutter::src::widgets::framework.dart::State" <|-- "biovitality::admin::admin_ui::manage_users_screen.dart::_ManageUsersScreenState"
+
+class "biovitality::admin::admin_ui::manage_users_screen.dart::User" {
+  +String uid
+  +String name
+  +String email
+}
+
+class "biovitality::main.dart::MyApp" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "biovitality::main.dart::MyApp"
+
+class "biovitality::models::user.dart::UserDetail" {
+  +String uid
+  +String email
+  +String name
+  +String? contact
+  +Map<String, dynamic> toMap()
+}
+
+class "biovitality::services::forgot_password_service.dart::ForgotPasswordService" {
+  -FirebaseAuth _firebaseAuth
+  +dynamic sendPasswordResetEmail()
+}
+
+"biovitality::services::forgot_password_service.dart::ForgotPasswordService" o-- "firebase_auth::firebase_auth.dart::FirebaseAuth"
+
+class "biovitality::services::model_detection_service.dart::DetectionService" {
+  -List<dynamic> _recognitions
+  -String _modelPath
+  -String _labelsPath
+  -bool _busy
+  +bool busy
+  +dynamic loadModel()
+  +dynamic predictImagePickerGallery()
+  +void closeModel()
+}
+
+class "biovitality::services::user_auth_service.dart::AuthService" {
+  -FirebaseAuth _auth
+  -DatabaseReference _dbRef
+  -GoogleSignIn _googleSignIn
+  +dynamic login()
+  +dynamic loginWithGoogle()
+  +dynamic checkIfUserExists()
+  +dynamic register()
+}
+
+"biovitality::services::user_auth_service.dart::AuthService" o-- "firebase_auth::firebase_auth.dart::FirebaseAuth"
+"biovitality::services::user_auth_service.dart::AuthService" o-- "firebase_database::firebase_database.dart::DatabaseReference"
+"biovitality::services::user_auth_service.dart::AuthService" o-- "google_sign_in::google_sign_in.dart::GoogleSignIn"
+
+class "biovitality::services::user_login_service.dart::LoginService" {
+  -AuthService _authService
+  +dynamic login()
+  +dynamic loginWithGoogle()
+  +dynamic checkIfUserExists()
+}
+
+"biovitality::services::user_login_service.dart::LoginService" o-- "biovitality::services::user_auth_service.dart::AuthService"
+
+class "biovitality::services::user_register_service.dart::RegisterService" {
+  -FirebaseAuth _firebaseAuth
+  -DatabaseReference _dbRef
+  -GoogleSignIn _googleSignIn
+  +dynamic registerToFb()
+  +dynamic registerWithGoogle()
+  +dynamic checkIfUserExists()
+  -void _showErrorDialog()
+}
+
+"biovitality::services::user_register_service.dart::RegisterService" o-- "firebase_auth::firebase_auth.dart::FirebaseAuth"
+"biovitality::services::user_register_service.dart::RegisterService" o-- "firebase_database::firebase_database.dart::DatabaseReference"
+"biovitality::services::user_register_service.dart::RegisterService" o-- "google_sign_in::google_sign_in.dart::GoogleSignIn"
+
+class "biovitality::services::weather_services::weather_api.dart::WeatherAPI" {
+  -WeatherData _weatherData
+  -List<ForecastData> _forecastData
+  +WeatherData weatherData
+  +List<ForecastData> forecastData
+  +dynamic fetchWeatherData()
+}
+
+"biovitality::services::weather_services::weather_api.dart::WeatherAPI" o-- "biovitality::services::weather_services::weather_data.dart::WeatherData"
+
+class "biovitality::services::weather_services::weather_api.dart::ForecastData" {
+  +DateTime date
+  +double temperature
+  +String weatherDescription
+}
+
+class "biovitality::services::weather_services::weather_data.dart::WeatherData" {
+  +String cityName
+  +double temperature
+  +String weatherDescription
+  +int humidity
+  +double windSpeed
+  +int pressure
+  +int visibility
+  +DateTime? sunrise
+  +DateTime? sunset
+  +DateTime? date
+  +void updateData()
+}
+
+class "biovitality::services::weather_services::weather_widgets.dart::WeatherBody" {
+  -WeatherData _weatherData
+  -List<ForecastData> _forecastData
+  +Widget build()
+}
+
+"biovitality::services::weather_services::weather_widgets.dart::WeatherBody" o-- "biovitality::services::weather_services::weather_data.dart::WeatherData"
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "biovitality::services::weather_services::weather_widgets.dart::WeatherBody"
+
+class "biovitality::services::weather_services::weather_widgets.dart::ForecastBox" {
+  -ForecastData _forecastData
+  -DateTime _date
+  +Widget build()
+}
+
+"biovitality::services::weather_services::weather_widgets.dart::ForecastBox" o-- "biovitality::services::weather_services::weather_api.dart::ForecastData"
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "biovitality::services::weather_services::weather_widgets.dart::ForecastBox"
+
+class "biovitality::services::weather_services::weather_widgets.dart::WeatherDetailBox" {
+  +IconData icon
+  +String label
+  +String value
+  +Widget build()
+}
+
+"biovitality::services::weather_services::weather_widgets.dart::WeatherDetailBox" o-- "flutter::src::widgets::icon_data.dart::IconData"
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "biovitality::services::weather_services::weather_widgets.dart::WeatherDetailBox"
+
+class "biovitality::Splash.dart::Splash" {
+  +State<Splash> createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "biovitality::Splash.dart::Splash"
+
+class "biovitality::Splash.dart::_SplashState" {
+  +void initState()
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::State" <|-- "biovitality::Splash.dart::_SplashState"
+
+class "biovitality::ui::about_biovitality.dart::AboutBioVitality" {
+  +Widget build()
+  -Widget _buildSectionTitle()
+  -Widget _buildParagraph()
+  -Widget _buildFeatureTile()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "biovitality::ui::about_biovitality.dart::AboutBioVitality"
+
+class "biovitality::ui::bottomActivities::bulletin_screen.dart::BulletinScreen" {
+  +State<BulletinScreen> createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "biovitality::ui::bottomActivities::bulletin_screen.dart::BulletinScreen"
+
+class "biovitality::ui::bottomActivities::bulletin_screen.dart::_BulletinScreenState" {
+  -int _selectedIndex
+  -List<dynamic> _news
+  -bool _isLoading
+  +void initState()
+  +dynamic fetchNews()
+  -void _onItemTapped()
+  -dynamic _onWillPop()
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::State" <|-- "biovitality::ui::bottomActivities::bulletin_screen.dart::_BulletinScreenState"
+
+class "biovitality::ui::bottomActivities::home_screen.dart::Home" {
+  +String? uid
+  +_HomeState createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "biovitality::ui::bottomActivities::home_screen.dart::Home"
+
+class "biovitality::ui::bottomActivities::home_screen.dart::_HomeState" {
+  -int _selectedIndex
+  -DatabaseReference _dbRef
+  -dynamic _userDataFuture
+  -File? _image
+  +String diseaseName
+  -bool _busy
+  +List<Map<String, String>> crops
+  +void initState()
+  -dynamic _getUserData()
+  -void _onItemTapped()
+  -dynamic _onWillPop()
+  +Widget build()
+  -void _navigateToNextPage()
+}
+
+"biovitality::ui::bottomActivities::home_screen.dart::_HomeState" o-- "firebase_database::firebase_database.dart::DatabaseReference"
+"biovitality::ui::bottomActivities::home_screen.dart::_HomeState" o-- "dart::io::File"
+"flutter::src::widgets::framework.dart::State" <|-- "biovitality::ui::bottomActivities::home_screen.dart::_HomeState"
+
+class "biovitality::ui::bottomActivities::home_screen.dart::CropCard" {
+  +String cropName
+  +String assetPath
+  +Widget build()
+  -void _navigateToNextPage()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "biovitality::ui::bottomActivities::home_screen.dart::CropCard"
+
+class "biovitality::ui::bottomActivities::marketview_screen.dart::MarketViewScreen" {
+  +State<MarketViewScreen> createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "biovitality::ui::bottomActivities::marketview_screen.dart::MarketViewScreen"
+
+class "biovitality::ui::bottomActivities::marketview_screen.dart::_MarketViewScreenState" {
+  -int _selectedIndex
+  +DatabaseReference databaseReference
+  -void _onItemTapped()
+  -dynamic _onWillPop()
+  +Widget build()
+  -void _openInGoogleMaps()
+}
+
+"biovitality::ui::bottomActivities::marketview_screen.dart::_MarketViewScreenState" o-- "firebase_database::firebase_database.dart::DatabaseReference"
+"flutter::src::widgets::framework.dart::State" <|-- "biovitality::ui::bottomActivities::marketview_screen.dart::_MarketViewScreenState"
+
+class "biovitality::ui::bottomActivities::weather_screen.dart::WeatherScreen" {
+  +State<WeatherScreen> createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "biovitality::ui::bottomActivities::weather_screen.dart::WeatherScreen"
+
+class "biovitality::ui::bottomActivities::weather_screen.dart::_WeatherScreenState" {
+  -WeatherData _weatherData
+  -WeatherAPI _weatherAPI
+  -int _selectedIndex
+  -bool _isDataLoaded
+  -dynamic _onWillPop()
+  -void _onItemTapped()
+  +void initState()
+  -dynamic _getCurrentLocation()
+  -dynamic _refresh()
+  +Widget build()
+}
+
+"biovitality::ui::bottomActivities::weather_screen.dart::_WeatherScreenState" o-- "biovitality::services::weather_services::weather_data.dart::WeatherData"
+"biovitality::ui::bottomActivities::weather_screen.dart::_WeatherScreenState" o-- "biovitality::services::weather_services::weather_api.dart::WeatherAPI"
+"flutter::src::widgets::framework.dart::State" <|-- "biovitality::ui::bottomActivities::weather_screen.dart::_WeatherScreenState"
+
+class "biovitality::ui::cure_screen.dart::Cure" {
+  +String diseaseName
+  +Map<String, String> disease
+  +Map<String, String> diseaseDetails
+  +Image? img
+  +Widget build()
+}
+
+"biovitality::ui::cure_screen.dart::Cure" o-- "flutter::src::widgets::image.dart::Image"
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "biovitality::ui::cure_screen.dart::Cure"
+
+class "biovitality::ui::intro_slider_screen.dart::IntroSliderScreen" {
+  +State<IntroSliderScreen> createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "biovitality::ui::intro_slider_screen.dart::IntroSliderScreen"
+
+class "biovitality::ui::intro_slider_screen.dart::_IntroSliderScreenState" {
+  -PageController _pageController
+  +int currentIndex
+  +Widget build()
+  -Widget _indicator()
+  -List<Widget> _buildIndicator()
+}
+
+"biovitality::ui::intro_slider_screen.dart::_IntroSliderScreenState" o-- "flutter::src::widgets::page_view.dart::PageController"
+"flutter::src::widgets::framework.dart::State" <|-- "biovitality::ui::intro_slider_screen.dart::_IntroSliderScreenState"
+
+class "biovitality::ui::intro_slider_screen.dart::createPage" {
+  +String title
+  +String subtitle
+  +String image
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "biovitality::ui::intro_slider_screen.dart::createPage"
+
+class "biovitality::ui::model_detection_screen.dart::DetectionPage" {
+  +String crop
+  +State<DetectionPage> createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "biovitality::ui::model_detection_screen.dart::DetectionPage"
+
+class "biovitality::ui::model_detection_screen.dart::_DetectionPageState" {
+  -File? _image
+  -DetectionService _detectionService
+  +void initState()
+  -dynamic _showDialog()
+  -dynamic _predictImagePickerGallery()
+  -dynamic _predictImagePickerCamera()
+  -dynamic _showResultDialog()
+  -void _handleCure()
+  +void dispose()
+  +Widget build()
+}
+
+"biovitality::ui::model_detection_screen.dart::_DetectionPageState" o-- "dart::io::File"
+"biovitality::ui::model_detection_screen.dart::_DetectionPageState" o-- "biovitality::services::model_detection_service.dart::DetectionService"
+"flutter::src::widgets::framework.dart::State" <|-- "biovitality::ui::model_detection_screen.dart::_DetectionPageState"
+
+class "biovitality::ui::myprofile_screen.dart::MyProfilePage" {
+  +_MyProfilePageState createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "biovitality::ui::myprofile_screen.dart::MyProfilePage"
+
+class "biovitality::ui::myprofile_screen.dart::_MyProfilePageState" {
+  -FirebaseAuth _auth
+  -DatabaseReference _dbRef
+  -FirebaseStorage _storage
+  -User? _user
+  -String _email
+  -String _name
+  -String _profileImageUrl
+  -String _contact
+  -String _address
+  -ImagePicker _imagePicker
+  +void initState()
+  -void _getUserData()
+  -dynamic _selectImage()
+  +Widget build()
+  +dynamic itemProfile()
+}
+
+"biovitality::ui::myprofile_screen.dart::_MyProfilePageState" o-- "firebase_auth::firebase_auth.dart::FirebaseAuth"
+"biovitality::ui::myprofile_screen.dart::_MyProfilePageState" o-- "firebase_database::firebase_database.dart::DatabaseReference"
+"biovitality::ui::myprofile_screen.dart::_MyProfilePageState" o-- "firebase_storage::firebase_storage.dart::FirebaseStorage"
+"biovitality::ui::myprofile_screen.dart::_MyProfilePageState" o-- "firebase_auth::firebase_auth.dart::User"
+"biovitality::ui::myprofile_screen.dart::_MyProfilePageState" o-- "image_picker::image_picker.dart::ImagePicker"
+"flutter::src::widgets::framework.dart::State" <|-- "biovitality::ui::myprofile_screen.dart::_MyProfilePageState"
+
+class "biovitality::ui::terms_conditions.dart::TermsConditions" {
+  +Widget build()
+  -Widget _buildSectionTitle()
+  -Widget _buildParagraph()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "biovitality::ui::terms_conditions.dart::TermsConditions"
+
+class "biovitality::ui::update_profile.dart::UpdateProfile" {
+  +_UpdateProfileState createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "biovitality::ui::update_profile.dart::UpdateProfile"
+
+class "biovitality::ui::update_profile.dart::_UpdateProfileState" {
+  -GlobalKey<FormState> _formKey
+  -TextEditingController _nameController
+  -TextEditingController _contactController
+  -TextEditingController _addressController
+  -FirebaseAuth _auth
+  -FirebaseDatabase _database
+  -User? _user
+  +void initState()
+  -void _getUserData()
+  -void _updateUserData()
+  +Widget build()
+}
+
+"biovitality::ui::update_profile.dart::_UpdateProfileState" o-- "flutter::src::widgets::framework.dart::GlobalKey<FormState>"
+"biovitality::ui::update_profile.dart::_UpdateProfileState" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
+"biovitality::ui::update_profile.dart::_UpdateProfileState" o-- "firebase_auth::firebase_auth.dart::FirebaseAuth"
+"biovitality::ui::update_profile.dart::_UpdateProfileState" o-- "firebase_database::firebase_database.dart::FirebaseDatabase"
+"biovitality::ui::update_profile.dart::_UpdateProfileState" o-- "firebase_auth::firebase_auth.dart::User"
+"flutter::src::widgets::framework.dart::State" <|-- "biovitality::ui::update_profile.dart::_UpdateProfileState"
+
+class "biovitality::ui::user_login_screen.dart::LoginScreen" {
+  +State<LoginScreen> createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "biovitality::ui::user_login_screen.dart::LoginScreen"
+
+class "biovitality::ui::user_login_screen.dart::_LoginScreenState" {
+  +TextEditingController emailController
+  +TextEditingController passwordController
+  -LoginService _loginService
+  -ForgotPasswordService _forgotPasswordService
+  -GlobalKey<FormState> _formKey
+  -bool _isObscure
+  -bool _isLoading
+  +Widget build()
+  -void _login()
+  -dynamic _loginWithGoogle()
+  -dynamic _forgotPassword()
+}
+
+"biovitality::ui::user_login_screen.dart::_LoginScreenState" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
+"biovitality::ui::user_login_screen.dart::_LoginScreenState" o-- "biovitality::services::user_login_service.dart::LoginService"
+"biovitality::ui::user_login_screen.dart::_LoginScreenState" o-- "biovitality::services::forgot_password_service.dart::ForgotPasswordService"
+"biovitality::ui::user_login_screen.dart::_LoginScreenState" o-- "flutter::src::widgets::framework.dart::GlobalKey<FormState>"
+"flutter::src::widgets::framework.dart::State" <|-- "biovitality::ui::user_login_screen.dart::_LoginScreenState"
+
+class "biovitality::ui::user_register_screen.dart::RegisterScreen" {
+  +State<RegisterScreen> createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "biovitality::ui::user_register_screen.dart::RegisterScreen"
+
+class "biovitality::ui::user_register_screen.dart::_RegisterScreenState" {
+  +bool isLoading
+  -GlobalKey<FormState> _formKey
+  -RegisterService _registerService
+  +TextEditingController emailController
+  +TextEditingController nameController
+  +TextEditingController passwordController
+  -bool _isObscure
+  +Widget build()
+}
+
+"biovitality::ui::user_register_screen.dart::_RegisterScreenState" o-- "flutter::src::widgets::framework.dart::GlobalKey<FormState>"
+"biovitality::ui::user_register_screen.dart::_RegisterScreenState" o-- "biovitality::services::user_register_service.dart::RegisterService"
+"biovitality::ui::user_register_screen.dart::_RegisterScreenState" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
+"flutter::src::widgets::framework.dart::State" <|-- "biovitality::ui::user_register_screen.dart::_RegisterScreenState"
+
+
+@enduml
